@@ -16,7 +16,7 @@
 
     {% for doctor in doctor_list %}
     <hr>
-    <p><strong>Имя:</strong> {{doctor.first_name}} {{doctor.last_name}}</p>
+    <p><strong>Имя:</strong><a href="{% url 'doctor_detail' pk=doctor.pk %}">{{doctor.first_name}} {{doctor.last_name}}</a></p>
     <p class="text-muted"><strong>Специальность:</strong> {% for specialization in doctor.specialization.all %}
         {{ specialization }} {% if not forloop.last %}, {% endif %}{% endfor %}</p>
     {% endfor %}

@@ -15,7 +15,7 @@
 
     {% for clinica in doctor.clinic.all %}
     <hr>
-    <p><strong>{{clinica.name}}</strong></p>
+    <p><a href="{% url 'clinic_detail' pk=clinica.pk %}"><strong>{{clinica.name}}</strong></a></p>
     <p class="text-muted"><strong>Услуги:</strong> {% for service in clinica.services.all %}
         {{ service }} {% if not forloop.last %}, {% endif %}{% endfor %}</p>
     {% endfor %}

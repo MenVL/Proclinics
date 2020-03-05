@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ doctor.first_name }} {{ doctor.last_name }}</h1>
+  <p><br></p>
+  <p><strong>Опыт:</strong> {{ doctor.experience }}</p>
+  <p><strong>Образование:</strong> {{ doctor.education }}</p>
+  <p><strong>Телефон:</strong> {{ doctor.telephone }}</p>
+  <p><strong>Описание:</strong> {{ doctor.about }}</p>
+  <p><strong>Специализация:</strong> {% for spec in doctor.specialization.all %} {{ spec }}
+      {% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <p><br></p>
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Клиники, в которых работает врач</h4>
+
+    {% for clinica in doctor.clinic.all %}
+    <hr>
+    <p><strong>{{clinica.name}}</strong></p>
+    <p class="text-muted"><strong>Услуги:</strong> {% for service in clinica.services.all %}
+        {{ service }} {% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список врачей</h1>
+    <p><br></p>
+    <h5>| Поиск по специальности |</h5>
+    <p><br></p>
+
+    {% if doctor_list %}
+    <ul>
+
+      {% for doctor in doctor_list %}
+      <li>
+        <a href="{% url 'doctor_detail' pk=doctor.pk %}">{{ doctor.first_name }} {{ doctor.last_name }}</a>
+        <p><b>Специальность: </b>{% for specialization in doctor.specialization.all %} {{ specialization }}
+            {% if not forloop.last %}, {% endif %}{% endfor %}</p>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Ошибка! Нет врачей.</p>
+    {% endif %}
+{% endblock %}

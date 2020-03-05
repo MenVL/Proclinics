@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Проклиникс</h1>
+
+  <p>Добро пожаловать в <em>Проклиникс</em>, сервис с информацией о медицинских учреждениях и врачах.</p>
+  <p>Это тестовый сайт для изучения django</p>
+  <p>by Menshikov_ve</p>
+
+<h2>Статистика</h2>
+  <ul>
+    <li><strong>Клиник:</strong> {{ clinics_count }}</li>
+    <li><strong>Врачей:</strong> {{ doctors_count }}</li>
+  </ul>
+
+{% endblock %}

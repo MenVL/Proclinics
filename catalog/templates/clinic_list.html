@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список медецинских учреждений</h1>
+    <p><br></p>
+    <h5>| Поиск по городу | Поиск по услугам |</h5>
+    <p><br></p>
+
+    {% if clinic_list %}
+    <ul>
+
+      {% for clinic in clinic_list %}
+      <li>
+        <a href="{% url 'clinic_detail' pk=clinic.pk %}">{{ clinic.name }} ({{ clinic.city }})</a>
+          <p><b>Адрес:</b> {{clinic.address}}</p>
+        <p><b>Услуги: </b>{% for service in clinic.services.all %} {{ service }}
+            {% if not forloop.last %}, {% endif %}{% endfor %}</p>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Ошибка! Нет медецинских учреждений.</p>
+    {% endif %}
+{% endblock %}

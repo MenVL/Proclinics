@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>{{ clinic.name }}</h1>
+  <p><br></p>
+  <p><strong>Тип:</strong> {{ clinic.type }} </p>
+  <p><strong>Город:</strong> {{ clinic.city }}</p>
+  <p><strong>Адрес:</strong> {{ clinic.address }}</p>
+  <p><strong>Телефон:</strong> {{ clinic.telephone }}</p>
+  <p><strong>Описание:</strong> {{ clinic.description }}</p>
+  <p><strong>Услуги:</strong> {% for service in clinic.services.all %} {{ service }}
+      {% if not forloop.last %}, {% endif %}{% endfor %}</p>
+  <p><br></p>
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Врачи</h4>
+
+    {% for doctor in doctor_list %}
+    <hr>
+    <p><strong>Имя:</strong> {{doctor.first_name}} {{doctor.last_name}}</p>
+    <p class="text-muted"><strong>Специальность:</strong> {% for specialization in doctor.specialization.all %}
+        {{ specialization }} {% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    {% endfor %}
+  </div>
+{% endblock %}

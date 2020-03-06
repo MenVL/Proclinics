@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список Городов по количеству медецинских учреждений</h1>
+    <p><br></p>
+
+    {% if city_dict %}
+    <ul>
+      {% for city in city_dict.items %}
+      <li>
+        <a href="{% url 'clinics_city_detail' city=city.0 %}">{{ city.0 }}</a>
+          <p><b>Клиник:</b> {{city.1}}</p>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Ошибка! Нет городов, в которых есть медецинские учреждения.</p>
+    {% endif %}
+{% endblock %}

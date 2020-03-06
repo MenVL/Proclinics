@@ -22,6 +22,35 @@ def clinics_list(request):
     )
 
 
+def clinics_list_city(request):
+    city_list = City.objects.all()
+    city_dict = {}
+    sort_city_dict = {}
+    for city in city_list:
+        count = Clinic.objects.filter(city=city).count()
+        if count > 0:
+            city_dict.update({city.name: count})
+    for city in sorted(city_dict.items(), key=lambda i:i[1], reverse=True):
+        sort_city_dict.update({city[0]: city[1]})
+
+    return render(
+        request,
+        'clinics_list_city.html',
+        context={'city_dict': sort_city_dict}
+    )
+
+
+def clinics_city_detail(request, city):
+    clinics = Clinic.objects.filter(city.name == city)
+    return render(
+        request,
+        'clinics_list_city_name.html',
+        context={'clinics': clinics,
+                 'city': city}
+    )
+
+
+
 def doctors_list(request):
     doctor_list = Doctor.objects.all()[:10]
     return render(

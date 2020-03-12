@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <p><b>Клиники Краснодара:</b></p>
+    {% for clinic in clinics_krd %} {{clinic}} {% endfor %}
+    <p><br><b>Клиники с Диагностикой</b></p>
+    {% for clinic in clinics_diag %} {{clinic}} {% endfor %}
+    <p><br><b>Клиники предлагающие услуги: 'Диагностика', 'Анализы', 'Узи', 'Чистка зубов'</b></p>
+    {% for clinic in clinics_3 %} {{clinic}} <br>{% endfor %}
+    <p><br><b>Клиники находящиеся НЕ в Краснодаре</b></p>
+    {% for clinic in clinics_not_krd %} {{clinic}} {% endfor %}
+    <p><br><b>Доктора, работающие в клинике в Краснодаре:</b></p>
+    {% for doctor in doctors %} {{doctor}} <br>{% endfor %}
+    <p><br><b>Доктора, живущие в Краснодаре, учившиеся в ММУ, хорошие люди:</b></p>
+    {% for doctor in dcotors_2 %} {{doctor}} <br>{% endfor %}
+    <p><br><b>Доктора, живущие в Краснодаре, учившиеся в ММУ, хорошие люди (SQL):</b></p>
+    {% for doctor in dcotors_3 %} {{doctor}} <br>{% endfor %}
+</head>
+<body>
+
+</body>
+</html>

@@ -14,7 +14,7 @@ def index(request):
 
 
 def clinics_list(request):
-    clinic_list = Clinic.objects.all()[:10]
+    clinic_list = Clinic.objects.all()[:30]
     return render(
         request,
         'clinic_list.html',
@@ -29,9 +29,9 @@ def clinics_list_city(request):
     for city in city_list:
         count = Clinic.objects.filter(city=city).count()
         if count > 0:
-            city_dict.update({city.name: count})
-    for city in sorted(city_dict.items(), key=lambda i:i[1], reverse=True):
-        sort_city_dict.update({city[0]: city[1]})
+            city_dict[city] = count
+    for city in sorted(city_dict.items(), key=lambda i: i[1], reverse=True):
+        sort_city_dict[city[0]] = city[1]
 
     return render(
         request,
@@ -40,19 +40,8 @@ def clinics_list_city(request):
     )
 
 
-def clinics_city_detail(request, city):
-    clinics = Clinic.objects.filter(city.name == city)
-    return render(
-        request,
-        'clinics_list_city_name.html',
-        context={'clinics': clinics,
-                 'city': city}
-    )
-
-
-
 def doctors_list(request):
-    doctor_list = Doctor.objects.all()[:10]
+    doctor_list = Doctor.objects.all()[:30]
     return render(
         request,
         'doctor_list.html',
@@ -79,3 +68,28 @@ def doctor_detail(request, pk):
         context={'doctor': doctor}
     )
 
+
+def test(request):
+    # Все клиники краснодара
+    clinics_krd = Clinic.objects.filter(city__name='Краснодар')
+    clinics_diag = Clinic.objects.filter(services__name='Диагностика')
+    clinics_3 = Clinic.objects.filter(services__name__in=['Диагностика', 'Анализы', 'Узи', 'Чистка зубов']).distinct()
+    clinics_not_krd = Clinic.objects.exclude(city__name='Краснодар')
+    doctors = Doctor.objects.filter(clinic__city__name__iexact='Краснодар')
+    dcotors_2 = Doctor.objects.filter(
+        clinic__city__name='Краснодар',
+        education__icontains='Московский медицинский университет',
+        about__icontains='хороший человек'
+    )
+    doctors_3 = Doctor.objects.raw('SELECT * FROM catalog_doctor')
+    return render(
+        request,
+        'test.html',
+        context={'clinics_krd': clinics_krd,
+                 'clinics_diag': clinics_diag,
+                 'clinics_3': clinics_3,
+                 'clinics_not_krd': clinics_not_krd,
+                 'doctors': doctors,
+                 'dcotors_2': dcotors_2,
+                 'doctors_3': doctors_3}
+    )

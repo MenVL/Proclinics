@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список врачей с специализацией: {{specialization}}</h1>
+    <p><br></p>
+    {% if doctors %}
+    <ul>
+      {% for doctor in doctors %}
+      <li>
+        <a href="{%url 'doctor_detail' pk=doctor.pk%}">{{ doctor }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Ошибка! Нет врачей.</p>
+    {% endif %}
+{% endblock %}

@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Список врачей</h1>
     <p><br></p>
-    <h5>| Поиск по специальности |</h5>
+    <h5><a href="{%url 'doctors_specialization'%}">| Поиск по специальности |</a></h5>
     <p><br></p>
 
     {% if doctor_list %}

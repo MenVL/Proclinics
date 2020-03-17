@@ -26,7 +26,12 @@
           <li><a href="{% url 'index' %}">Домой</a></li>
           <li><a href="{% url 'clinics' %}">Все клиники</a></li>
           <li><a href="{% url 'doctors' %}">Все врачи</a></li>
-          <li><a href="{% url 'test' %}">Тесты</a></li>
+      </ul>
+
+      <ul class="sidebar-nav">
+          <li><a href="{% url 'clinics_city' %}">Поиск по городу</a></li>
+          <li><a href="{% url 'clinics_services' %}">Поиск услугам</a></li>
+          <li><a href="{% url 'doctors_specialization' %}">Поиск по специальности</a></li>
       </ul>
      {% endblock %}
       </div>

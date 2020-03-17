@@ -37,7 +37,7 @@ def clinics_list_city(request):
 
 def clinic_list_services(request):
     # Поиск клиник по услуге с выводом количества клиник с этой слугой
-    services = ClinicServices.objects.annotate(Count('clinic'))
+    services = ClinicServices.objects.annotate(Count('clinic')).filter(clinic__count__gt=0).order_by('-clinic__count')
     return render(
         request,
         'clinic_list_services.html',
@@ -69,16 +69,6 @@ def clinic_city_detail(request, city):
     )
 
 
-def doctors_list(request):
-    # Список всех врачей
-    doctor_list = Doctor.objects.all()
-    return render(
-        request,
-        'doctor_list.html',
-        context={'doctor_list': doctor_list}
-    )
-
-
 def clinic_detail(request, pk):
     # Детальная информация о клинике
     clinic = get_object_or_404(Clinic, pk=pk)
@@ -103,28 +93,33 @@ def doctor_detail(request, pk):
     )
 
 
-def test(request):
-    # Тесты работы функций
-    clinics_krd = Clinic.objects.filter(city__name='Краснодар')
-    clinics_diag = Clinic.objects.filter(services__name='Диагностика')
-    clinics_3 = Clinic.objects.filter(services__name__in=['Диагностика', 'Анализы', 'Узи', 'Чистка зубов']).distinct()
-    clinics_not_krd = Clinic.objects.exclude(city__name='Краснодар')
-    doctors = Doctor.objects.filter(clinic__city__name__iexact='Краснодар')
-    dcotors_2 = Doctor.objects.filter(
-        clinic__city__name='Краснодар',
-        education__icontains='Московский медицинский университет',
-        about__icontains='хороший человек'
-    )
-    # не работает:
-    doctors_3 = Doctor.objects.raw('SELECT "catalog_clinic"."name" FROM "catalog_clinic"')
+def doctors_list(request):
+    # Список всех врачей
+    doctor_list = Doctor.objects.all()
     return render(
         request,
-        'test.html',
-        context={'clinics_krd': clinics_krd,
-                 'clinics_diag': clinics_diag,
-                 'clinics_3': clinics_3,
-                 'clinics_not_krd': clinics_not_krd,
-                 'doctors': doctors,
-                 'dcotors_2': dcotors_2,
-                 'doctors_3': doctors_3}
+        'doctor_list.html',
+        context={'doctor_list': doctor_list}
+    )
+
+
+def doctors_list_specialization(request):
+    specializations = DoctorSpecialization.objects.annotate(Count('doctor')) \
+        .filter(doctor__count__gt=0).order_by('-doctor__count')
+    return render(
+        request,
+        'doctors_list_specialization.html',
+        context={'specializations': specializations}
+    )
+
+
+def doctors_list_specialization_get(request, pk):
+    print('Start')
+    doctors = Doctor.objects.filter(specialization__pk=pk)
+    specialization = DoctorSpecialization.objects.get(pk=pk)
+    return render(
+        request,
+        'doctors_list_specialization_get.html',
+        context={'doctors': doctors,
+                 'specialization': specialization}
     )

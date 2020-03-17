@@ -20,5 +20,20 @@
     <p class="text-muted"><strong>Специальность:</strong> {% for specialization in doctor.specialization.all %}
         {{ specialization }} {% if not forloop.last %}, {% endif %}{% endfor %}</p>
     {% endfor %}
+
+  </div>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <br>
+    <br>
+    <h4>Медецинские учреждения с похожими услугами:</h4>
+
+    {% for clinica in concurents %}
+    <hr>
+    <p><a href="{% url 'clinic_detail' pk=clinica.pk %}"><strong>{{clinica.name}}</strong></a></p>
+    <p class="text-muted"><strong>Услуги:</strong> {% for service in clinica.services.all %}
+        {{ service }} {% if not forloop.last %}, {% endif %}{% endfor %}</p>
+    {% endfor %}
+
   </div>
 {% endblock %}

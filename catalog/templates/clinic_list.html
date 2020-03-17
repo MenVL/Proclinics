@@ -3,7 +3,7 @@
 {% block content %}
     <h1>Список медецинских учреждений</h1>
     <p><br></p>
-    <h5>|<a href="{% url 'clinics_city' %}"> Поиск по городу </a>| Поиск по услугам |</h5>
+<h5>|<a href="{% url 'clinics_city' %}"> Поиск по городу </a>| <a href="{% url 'clinics_services' %}">Поиск по услугам |</a></h5>
     <p><br></p>
 
     {% if clinic_list %}

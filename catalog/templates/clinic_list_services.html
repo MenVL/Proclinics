@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список услуг:</h1>
+    <p><br></p>
+    <p>Введите или выберите услугу: <br></p>
+
+    {% if services %}
+    <ul>
+      {% for service in services %}
+      <li>
+        <a href="{% url 'clinic_services_detail' service=service.pk %}">{{ service.name }}</a>
+        <p>Клиник: {{service.clinic__count}}</p>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Ошибка! Нет услуг.</p>
+    {% endif %}
+{% endblock %}

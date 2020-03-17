@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список клиник в городе: {{city_name}}</h1>
+    <p><br></p>
+
+    {% if clinics %}
+    <ul>
+      {% for clinic in clinics %}
+      <li>
+        <a href="{%url 'clinic_detail' pk=clinic.pk%}">{{ clinic }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Ошибка! Нет медучерждений.</p>
+    {% endif %}
+{% endblock %}
